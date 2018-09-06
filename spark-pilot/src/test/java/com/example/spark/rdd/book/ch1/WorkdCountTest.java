@@ -33,11 +33,5 @@ public class WorkdCountTest {
 		System.out.println(resultMap);
 	}
 	
-	@Test
-	public void testMap() {
-		String input = "Apache Spark is fast and general engine for large-scale data processing Spark runs on both Windows and UNIX-like systems";
-		
-		JavaRDD<String> inputRDD = sc.
-	}
 
 }
