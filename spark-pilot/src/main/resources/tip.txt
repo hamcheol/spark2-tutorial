@@ -1,0 +1,2 @@
+BindException 발생시엔 아래 참고.
+https://stackoverflow.com/questions/34601554/mac-spark-shell-error-initializing-sparkcontext
