@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 public class MapPartitionIndexSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("MapPartitionSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("MapPartitionIndexSample", "spark://AL01221128.local:7077");
 		JavaRDD<Integer> rdd1 = sc.parallelize(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 3);
 		JavaRDD<Integer> rdd2 = rdd1.mapPartitionsWithIndex((idx, numbers) -> {
 			List<Integer> results = Lists.newArrayList();
