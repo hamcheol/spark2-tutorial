@@ -10,6 +10,11 @@ import org.apache.spark.broadcast.Broadcast;
 import com.example.spark.rdd.book.utils.SparkUtils;
 import com.google.common.collect.Sets;
 
+/**
+ * Broardcast는 읽기, Accumulator는 쓰기를 위한 전역 변수 
+ * @author naver
+ *
+ */
 public class BroadcastSample {
 
 	public static void main(String[] args) {

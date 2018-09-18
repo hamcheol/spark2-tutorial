@@ -10,7 +10,7 @@ import com.example.spark.rdd.book.utils.SparkUtils;
 public class FlatMapSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("FlatMapSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("FlatMapSample", "spark://AL01221128.local:7077");
 		JavaRDD<String> rdd1 = sc.parallelize(Arrays.asList("apple,orange", "grape,mango,apple", "blueberry,tomato,orange"));
 		
 		JavaRDD<String> rdd2 = rdd1.flatMap(t -> {
