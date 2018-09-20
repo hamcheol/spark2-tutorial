@@ -13,7 +13,7 @@ import scala.Tuple2;
 public class ReduceByKeySample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("ReduceByKeySample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("ReduceByKeySample");
 		@SuppressWarnings("unchecked") 
 		List<Tuple2<String, Integer>> data = Lists.newArrayList(
 				new Tuple2<String, Integer>("a",1),

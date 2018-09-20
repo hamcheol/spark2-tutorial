@@ -13,7 +13,7 @@ import scala.Tuple2;
 public class MapValuesSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("MapValuesSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("MapValuesSample");
 		JavaRDD<String> rdd1 = sc.parallelize(Arrays.asList("a", "b", "c"));
 		JavaPairRDD<String, Integer> pairRDD = rdd1
 			.mapToPair(t -> new Tuple2<String, Integer>(t, 1))

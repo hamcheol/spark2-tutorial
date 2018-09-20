@@ -9,7 +9,7 @@ import com.example.spark.rdd.book.utils.SparkUtils;
 
 public class CoalesceRepartitionSample {
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("CoalesceRepartitionSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("CoalesceRepartitionSample");
 		JavaRDD<Integer> rdd1 = sc.parallelize(Arrays.asList(1,2,3,4,5,6,7,8,9,10), 10);
 		JavaRDD<Integer> rdd2 = rdd1.coalesce(5);
 		JavaRDD<Integer> rdd3 = rdd1.repartition(10);

@@ -18,7 +18,7 @@ import com.google.common.collect.Sets;
 public class BroadcastSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("BroadcastSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("BroadcastSample");
 		Broadcast<Set<String>> broadcast = sc.broadcast(Sets.newHashSet("u1","u2")); 
 		JavaRDD<String> rdd1 = sc.parallelize(Arrays.asList("u1","u3","u3","u4","u5","u6"), 3);
 		JavaRDD<String> rdd2 = rdd1.filter(t -> {

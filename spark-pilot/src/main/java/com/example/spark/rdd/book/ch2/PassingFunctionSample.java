@@ -10,7 +10,7 @@ import com.example.spark.rdd.book.utils.SparkUtils;
 public class PassingFunctionSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("PassingFunctionSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("PassingFunctionSample");
 		JavaRDD<Integer> rdd1 = sc.parallelize(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 		JavaRDD<Integer> rdd2 = rdd1.map(new Add());
 

@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 public class MapPartitionSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("MapPartitionSample", "spark://AL01221128.local:7077");
+		JavaSparkContext sc = SparkUtils.getSparkContext("MapPartitionSample");
 		JavaRDD<Integer> rdd1 = sc.parallelize(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 3);
 
 		JavaRDD<Integer> rdd2 = rdd1.mapPartitions((Iterator<Integer> t) -> {

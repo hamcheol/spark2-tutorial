@@ -14,7 +14,7 @@ import scala.Tuple2;
 public class RepartitionAndSortSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("RepartitionAndSortSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("RepartitionAndSortSample");
 
 		JavaPairRDD<Integer, String> rdd1 = sc.parallelize(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 			.mapToPair((Integer v) -> new Tuple2<Integer, String>(v, "-"));

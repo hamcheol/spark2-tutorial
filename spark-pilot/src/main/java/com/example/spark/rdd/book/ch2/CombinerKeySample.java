@@ -13,7 +13,7 @@ import scala.Tuple2;
 public class CombinerKeySample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("CombinerKeySample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("CombinerKeySample");
 		@SuppressWarnings("unchecked") 
 		List<Tuple2<String, Long>> data = Lists.newArrayList(
 				new Tuple2<String, Long>("Math",100L),

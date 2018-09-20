@@ -11,7 +11,7 @@ import com.example.spark.rdd.book.utils.SparkUtils;
 public class SparkSessionSample {
 
 	public static void main(String[] args) {
-		SparkSession session = SparkUtils.getSparkSession("SparkSessionSample", "spark://AL01221128.local:7077");
+		SparkSession session = SparkUtils.getSparkSession("SparkSessionSample");
 		Dataset<Row> df = session.read().text("/Users/naver/data/public/wordcount/input");
 		Dataset<Row> wordDf = df.select(explode(split(col("value"), " ")).as("word"));
 		Dataset<Row> result = wordDf.groupBy("word").count();

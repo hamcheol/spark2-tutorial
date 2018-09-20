@@ -13,7 +13,7 @@ import scala.Tuple2;
 public class AggregateByKeySample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("AggregateByKeySample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("AggregateByKeySample");
 		@SuppressWarnings("unchecked") List<Tuple2<String, Long>> data = Lists.newArrayList(
 			new Tuple2<String, Long>("Math", 100L),
 			new Tuple2<String, Long>("Eng", 80L),

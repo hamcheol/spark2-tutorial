@@ -12,7 +12,7 @@ import scala.Tuple2;
 public class FlatMapValuesSample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("FlatMapValuesSample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("FlatMapValuesSample");
 		JavaPairRDD<Integer, String> rdd1 = sc.parallelizePairs(Arrays.asList(new Tuple2<Integer, String>(1, "a,b"), 
 			new Tuple2<Integer, String>(2, "a,c"), 
 			new Tuple2<Integer, String>(1, "d,e")));

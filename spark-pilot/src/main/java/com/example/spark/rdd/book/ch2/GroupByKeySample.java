@@ -13,7 +13,7 @@ import scala.Tuple2;
 public class GroupByKeySample {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("GroupByKeySample", "local[*]");
+		JavaSparkContext sc = SparkUtils.getSparkContext("GroupByKeySample");
 		List<Tuple2<String, Integer>> data = Arrays.asList(
 			new Tuple2<String, Integer>("a",1),
 			new Tuple2<String, Integer>("b",1),
