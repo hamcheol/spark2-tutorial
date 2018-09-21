@@ -22,7 +22,7 @@ public class DataFrameSample {
 				new Person("jinwoo",13,"student")
 			);
 		Dataset<Row> df = session.createDataFrame(persons, Person.class);
-		df.groupBy("job").agg(col("name"), sum("age"), avg("age")).show();
+		df.groupBy("job").agg(col("job"), sum("age"), avg("age")).show();
 
 	}
 
