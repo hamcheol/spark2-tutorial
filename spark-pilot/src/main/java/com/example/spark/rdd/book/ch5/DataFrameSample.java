@@ -9,6 +9,8 @@ import org.apache.spark.sql.SparkSession;
 
 import com.example.spark.rdd.book.utils.SparkUtils;
 
+import static org.apache.spark.sql.functions.*;
+
 public class DataFrameSample {
 
 	public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class DataFrameSample {
 				new Person("jinwoo",13,"student")
 			);
 		Dataset<Row> df = session.createDataFrame(persons, Person.class);
-		df.groupBy("job").sum("age").show();
+		df.groupBy("job").agg(col("name"), sum("age"), avg("age")).show();
 
 	}
 

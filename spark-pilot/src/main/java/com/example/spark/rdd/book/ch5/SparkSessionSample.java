@@ -1,10 +1,12 @@
 package com.example.spark.rdd.book.ch5;
 
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.explode;
+import static org.apache.spark.sql.functions.split;
+
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-
-import static org.apache.spark.sql.functions.*;
 
 import com.example.spark.rdd.book.utils.SparkUtils;
 
