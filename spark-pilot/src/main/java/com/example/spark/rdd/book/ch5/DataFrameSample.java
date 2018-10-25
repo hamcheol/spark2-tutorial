@@ -23,44 +23,12 @@ public class DataFrameSample {
 			);
 		Dataset<Row> df = session.createDataFrame(persons, Person.class);
 		df.groupBy("job").agg(col("job"), sum("age"), avg("age")).show();
-
-	}
-
-	public static class Person {
-		private String name;
-		private int age;
-		private String job;
 		
-		Person(String name, int age, String job) {
-			this.name = name;
-			this.age = age;
-			this.job = job;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public int getAge() {
-			return age;
-		}
-
-		public void setAge(int age) {
-			this.age = age;
-		}
-
-		public String getJob() {
-			return job;
-		}
-
-		public void setJob(String job) {
-			this.job = job;
-		}
+		System.out.println(df.head());
+		System.out.println(df.take(2));
+		System.out.println(df.count());
+		System.out.println(df.collectAsList());
+		df.describe("age").show();
 
 	}
-
 }
