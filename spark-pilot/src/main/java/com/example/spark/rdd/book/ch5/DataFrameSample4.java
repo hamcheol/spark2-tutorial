@@ -3,6 +3,7 @@ package com.example.spark.rdd.book.ch5;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.KeyValueGroupedDataset;
@@ -27,6 +28,27 @@ public class DataFrameSample4 {
 
 		KeyValueGroupedDataset<String, Person> ds2 = ds.groupByKey(v -> v.getJob(), Encoders.STRING());
 		ds2.agg(typed.sumLong(v -> new Long(v.getAge())), typed.avg(v -> new Double(v.getAge()))).show();
+
+		//ds.createOrReplaceTempView("person");
+		//session.sql("select job, sum(age), avg(age) from person group by job").show();
+		/*
+		KeyValueGroupedDataset<String, String> ds3 = ds2.mapValues(new MapFunction<Person, String>() {
+			@Override
+			public String call(Person value) throws Exception {
+				return p.getName() + "(" + p.getAge() + ")";
+			}
+			
+		}, Encoders.STRING());
+		*/
+		KeyValueGroupedDataset<String, String> ds3 = ds2.mapValues(p -> {
+			return p.getName() + "(" + p.getAge() + ")";
+		}, Encoders.STRING());
+		
+		ds3.reduceGroups((v1, v2) -> {
+			return v1 + v2;
+		}).show(false);
+		
+		//return p.getName() + "(" + p.getAge() + ")";
 
 	}
 
