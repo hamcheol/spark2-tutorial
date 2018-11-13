@@ -1,5 +1,10 @@
 package com.example.spark.rdd.book.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -7,7 +12,8 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
 
 public class SparkUtils {
-	public static String SPARK_MASTER = "spark://AL01221128.local:7077";
+	//public static String SPARK_MASTER = "spark://AL01221128.local:7077";
+	public static String SPARK_MASTER = "local[3]";
 
 	public static JavaSparkContext getSparkContext(String appName) {
 		SparkConf conf = getSparkConf()
@@ -33,6 +39,17 @@ public class SparkUtils {
 			.set("spark.history.provider", "org.apache.spark.deploy.history.FsHistoryProvider")
 			.set("spark.sql.shuffle.partitions", "10")
 			.setJars(new String[] {"/Users/naver/git/spark2-tutorial/spark-pilot/target/spark-pilot-0.0.1-SNAPSHOT.jar"});
+	}
+	
+	public static Map<String, Object> getKafkaParams() {
+		Map<String, Object> params = new HashMap<>();
+		params.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+		params.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		params.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		params.put(ConsumerConfig.GROUP_ID_CONFIG, "order-queue-consumer1");
+		params.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+		params.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+		return params;
 	}
 
 	public static JavaRDD<String> getInputRDD(JavaSparkContext sc, String input) {
