@@ -38,7 +38,7 @@ public class SparkUtils {
 			.set("spark.history.fs.logDirectory", "file:/Users/naver/data/public/eventlog")
 			.set("spark.history.provider", "org.apache.spark.deploy.history.FsHistoryProvider")
 			.set("spark.sql.shuffle.partitions", "10")
-			.set("spark.driver.allowMultipleContexts", "true")
+			//.set("spark.driver.allowMultipleContexts", "true")
 			.setJars(new String[] {"/Users/naver/git/spark2-tutorial/spark-pilot/target/spark-pilot-0.0.1-SNAPSHOT.jar"});
 	}
 	
