@@ -42,6 +42,17 @@ public class SparkUtils {
 			.setJars(new String[] {"/Users/naver/git/spark2-tutorial/spark-pilot/target/spark-pilot-0.0.1-SNAPSHOT.jar"});
 	}
 	
+	public static Map<String, String> getSparkParams() {
+		Map<String, String> params = new HashMap<>();
+		params.put("spark.serializer", "org.apache.spark.serializer.KryoSerializer");
+		params.put("spark.eventLog.enabled", "true");
+		params.put("spark.eventLog.dir", "file:/Users/naver/data/public/eventlog");
+		params.put("spark.history.fs.logDirectory", "file:/Users/naver/data/public/eventlog");
+		params.put("spark.history.provider", "org.apache.spark.deploy.history.FsHistoryProvider");
+		params.put("spark.sql.shuffle.partitions", "10");
+		return params;
+	}
+	
 	public static Map<String, Object> getKafkaParams() {
 		Map<String, Object> params = new HashMap<>();
 		params.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -50,6 +61,17 @@ public class SparkUtils {
 		params.put(ConsumerConfig.GROUP_ID_CONFIG, "order-queue-consumer1");
 		params.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 		params.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+		return params;
+	}
+	
+	public static Map<String, String> getKafkaStringParams() {
+		Map<String, String> params = new HashMap<>();
+		params.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+		params.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "StringDeserializer.class");
+		params.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "StringDeserializer.class");
+		params.put(ConsumerConfig.GROUP_ID_CONFIG, "order-queue-consumer1");
+		params.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+		params.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 		return params;
 	}
 
