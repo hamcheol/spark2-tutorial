@@ -3,50 +3,58 @@ package com.example.spark.rdd.order.report;
 import static org.apache.spark.sql.functions.*;
 
 import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.streaming.OutputMode;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
+import org.apache.spark.sql.streaming.Trigger;
 
 import com.example.spark.rdd.book.utils.SparkUtils;
 import com.example.spark.rdd.book.utils.StructUtils;
-import com.example.spark.rdd.order.model.Order;
-import com.google.gson.Gson;
 
 public class OrderReportType3 {
 
 	public static void main(String[] args) {
 		SparkSession session = SparkUtils.getSparkSession("OrderReportType3");
 		//load
-		Dataset<Order> ds = session.readStream()
+		Dataset<Row> ds1 = session.readStream()
 			.format("kafka")
 			.option("kafka.bootstrap.servers", "localhost:9092")
 	        .option("subscribe", "order-queue")
 	        .option("startingOffsets", "latest")
 	        .option("maxOffsetsPerTrigger", 50)
 			.load()
-			.selectExpr("CAST(value AS STRING)")
-			.as(Encoders.STRING())
-			.map(v -> {
-					return new Gson().fromJson(v, Order.class);
-				}, Encoders.bean(Order.class)
-			);
+			.selectExpr("CAST(value as string) as json", "current_timestamp as ts")
+			.select(
+				from_json(col("json"), StructUtils.getOrderStruct()).as("order"), 
+				col("ts")
+			)
+			.select(col("order.*"), col("ts"));
 		
-		ds.printSchema();
-		Dataset<Row> pds = ds.select(
+		ds1.printSchema();
+		
+		Dataset<Row> ds2 = ds1.select(
 			col("ordNo"), 
-			col("payMethod"), 
-			explode(col("orderItems")).as("oi")
+			col("payMethod"),
+			col("ts"),
+			explode(col("orderItems")).as("oi"),
+			window(col("ts"), "3 minute", "1 minute").as("window")
 		)
 		.withColumn("price", col("oi.price"))
 		.withColumn("orderCount", col("oi.orderCount"))
 		.withColumn("itemNo", col("oi.itemNo"))
-		.groupBy(col("itemNo"))
-		.agg(sum(col("price")), sum(col("orderCount")));
-		pds.printSchema();
+		.withWatermark("ts", "3 minute");
+		ds2.printSchema();
 		
-		StreamingQuery query = pds.writeStream()
+		Dataset<Row> ds3 = ds2.groupBy(col("window"), col("oi.itemNo"))
+			.agg(sum(col("oi.price")), sum(col("oi.orderCount")));
+		
+		ds3.printSchema();
+		
+		StreamingQuery query = ds3.writeStream()
+			.outputMode(OutputMode.Complete())
+			.trigger(Trigger.ProcessingTime("10 seconds"))
 			.format("console")
 			.start();
 		
@@ -56,8 +64,6 @@ public class OrderReportType3 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//Dataset<Row> result = session.sql("select itemNo, sum(price * orderCount) as orderAmt from order group by itemNo");
 
 	}
 
