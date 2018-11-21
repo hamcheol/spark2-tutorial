@@ -9,6 +9,7 @@ import org.apache.spark.sql.streaming.OutputMode;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.streaming.Trigger;
+import org.apache.spark.sql.types.DataTypes;
 
 import com.example.spark.rdd.book.utils.SparkUtils;
 import com.example.spark.rdd.book.utils.StructUtils;
@@ -37,17 +38,19 @@ public class OrderReportType3 {
 		Dataset<Row> ds2 = ds1.select(
 			col("ordNo"), 
 			col("payMethod"),
+			col("orderTime"),
 			col("ts"),
-			explode(col("orderItems")).as("oi"),
-			window(col("ts"), "3 minute", "1 minute").as("window")
+			explode(col("orderItems")).as("oi")
 		)
 		.withColumn("price", col("oi.price"))
 		.withColumn("orderCount", col("oi.orderCount"))
 		.withColumn("itemNo", col("oi.itemNo"))
-		.withWatermark("ts", "3 minute");
+		.withColumn("ots", unix_timestamp(col("orderTime"), "yyyy-MM-dd'T'HH:mm:ss.SSS").cast(DataTypes.TimestampType));
+		
 		ds2.printSchema();
 		
-		Dataset<Row> ds3 = ds2.groupBy(col("window"), col("oi.itemNo"))
+		Dataset<Row> ds3 = ds2.withWatermark("ots", "3 minute")
+			.groupBy(window(col("ots"), "3 minute", "1 minute"), col("oi.itemNo"))
 			.agg(sum(col("oi.price")), sum(col("oi.orderCount")));
 		
 		ds3.printSchema();
@@ -56,6 +59,8 @@ public class OrderReportType3 {
 			.outputMode(OutputMode.Complete())
 			.trigger(Trigger.ProcessingTime("10 seconds"))
 			.format("console")
+			.option("truncate", "false")
+			.option("checkpointLocation", "/Users/naver/data/public/temp")
 			.start();
 		
 		try {
