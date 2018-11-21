@@ -14,10 +14,10 @@ import com.example.spark.rdd.book.utils.StructUtils;
 import com.example.spark.rdd.order.model.Order;
 import com.google.gson.Gson;
 
-public class OrderReportStream {
+public class OrderReportType3 {
 
 	public static void main(String[] args) {
-		SparkSession session = SparkUtils.getSparkSession("OrderReportStream");
+		SparkSession session = SparkUtils.getSparkSession("OrderReportType3");
 		//load
 		Dataset<Order> ds = session.readStream()
 			.format("kafka")
@@ -45,25 +45,7 @@ public class OrderReportStream {
 		.groupBy(col("itemNo"))
 		.agg(sum(col("price")), sum(col("orderCount")));
 		pds.printSchema();
-		/*
-		Dataset<Row> dsOrder = ds.select(from_json(col("value"), StructUtils.getOrderStruct()))
-			.as("order")
-			.select(col("order.*"));
 		
-		dsOrder.printSchema();
-		*/
-		/*
-		Dataset<Row> explode = 	dsOrder.select(
-				col("ordNo"), 
-				col("payMethod"), 
-				explode(col("orderItems")).as("oi")
-			)
-			.withColumn("price", col("oi.price"))
-			.withColumn("orderCount", col("oi.orderCount"))
-			.withColumn("itemNo", col("oi.itemNo"));
-		
-		explode.printSchema();
-		*/
 		StreamingQuery query = pds.writeStream()
 			.format("console")
 			.start();

@@ -23,11 +23,9 @@ import org.apache.spark.streaming.kafka010.LocationStrategies;
 
 import com.example.spark.rdd.book.utils.SparkUtils;
 
-import static org.apache.spark.sql.functions.*;
-
-public class OrderReport {
+public class OrderReportType1 {
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("OrderReport");
+		JavaSparkContext sc = SparkUtils.getSparkContext("OrderReportType1");
 		JavaStreamingContext ssc = new JavaStreamingContext(sc, Durations.seconds(3));
 
 		JavaInputDStream<ConsumerRecord<String, String>> stream = KafkaUtils.createDirectStream(

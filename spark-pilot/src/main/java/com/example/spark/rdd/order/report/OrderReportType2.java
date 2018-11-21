@@ -37,10 +37,10 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class OrderReportOne {
+public class OrderReportType2 {
 
 	public static void main(String[] args) {
-		JavaSparkContext sc = SparkUtils.getSparkContext("OrderReportOne");
+		JavaSparkContext sc = SparkUtils.getSparkContext("OrderReportType2");
 		JavaStreamingContext ssc = new JavaStreamingContext(sc, Durations.seconds(3));
 
 		JavaInputDStream<ConsumerRecord<String, String>> stream = KafkaUtils.createDirectStream(
