@@ -7,6 +7,7 @@ public class RawPanda {
 	private String zip;
 	private String pt;
 	private Boolean happy;
+	private Integer pandaSize;
 	private List<Double> attributes;
 
 	public Long getId() {
@@ -47,6 +48,14 @@ public class RawPanda {
 
 	public void setPt(String pt) {
 		this.pt = pt;
+	}
+
+	public Integer getPandaSize() {
+		return pandaSize;
+	}
+
+	public void setPandaSize(Integer pandaSize) {
+		this.pandaSize = pandaSize;
 	}
 
 }

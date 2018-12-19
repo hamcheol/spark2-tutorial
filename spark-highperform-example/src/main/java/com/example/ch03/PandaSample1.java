@@ -21,7 +21,7 @@ public class PandaSample1 {
 		List<PandaPlace> places = Lists.newArrayList();
 		String[] name = {"Beijing", "Seoul", "Tokyo"};
 		String[] zip = {"94110","95420","96018"};
-		String[] pt = {"giant","small"};
+		String[] pt = {"giant","red"};
 
 		for (int i = 0; i < 3; i++) {
 			List<RawPanda> raws = Lists.newArrayList();
@@ -31,6 +31,7 @@ public class PandaSample1 {
 				raw.setHappy(j % 2 == 0);
 				raw.setPt(pt[RandomUtils.nextInt(0, 2)]);
 				raw.setZip(zip[RandomUtils.nextInt(0, 3)]);
+				raw.setPandaSize(RandomUtils.nextInt(150, 200));
 				raw.setAttributes(Lists.newArrayList((i+1)/(double)(i+2), (j+1)/(double)(j+2)));
 				raws.add(raw);
 			}
@@ -47,6 +48,7 @@ public class PandaSample1 {
 			.withColumn("happy", col("col.happy"))
 			.withColumn("pt", col("col.pt"))
 			.withColumn("zip", col("col.zip"))
+			.withColumn("pandaSize", col("col.pandaSize"))
 			.withColumn("attributes", col("col.attributes"))
 			.drop("col");
 		
