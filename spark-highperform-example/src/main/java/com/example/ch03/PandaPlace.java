@@ -1,8 +1,10 @@
 package com.example.ch03;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PandaPlace {
+public class PandaPlace implements Serializable {
+	private static final long serialVersionUID = -5020718366138535119L;
 	private String name;
 	private List<RawPanda> pandas;
 	

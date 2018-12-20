@@ -1,13 +1,16 @@
 package com.example.ch03;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RawPanda {
+public class RawPanda implements Serializable {
+	private static final long serialVersionUID = -8114581709952682046L;
 	private Long id;
 	private String zip;
 	private String pt;
 	private Boolean happy;
 	private Integer pandaSize;
+	private Integer age;
 	private List<Double> attributes;
 
 	public Long getId() {
@@ -56,6 +59,14 @@ public class RawPanda {
 
 	public void setPandaSize(Integer pandaSize) {
 		this.pandaSize = pandaSize;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 }
