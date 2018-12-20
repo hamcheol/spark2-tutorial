@@ -1,19 +1,20 @@
 package com.example.ch03;
 
+import static org.apache.spark.sql.functions.avg;
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.explode;
+
 import java.util.List;
 
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 
+import com.example.model.PandaPlace;
 import com.example.utils.SparkUtils;
 import com.example.utils.TestPandaProvider;
-import com.google.common.collect.Lists;
-
-import static org.apache.spark.sql.functions.*;
 
 
 public class PandaSample1 {

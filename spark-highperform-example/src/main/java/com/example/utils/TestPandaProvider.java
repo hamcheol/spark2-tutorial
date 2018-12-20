@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomUtils;
 
-import com.example.ch03.PandaPlace;
-import com.example.ch03.RawPanda;
+import com.example.model.PandaPlace;
+import com.example.model.RawPanda;
 import com.google.common.collect.Lists;
 
 public class TestPandaProvider {
 	public static List<PandaPlace> extract() {
 		List<PandaPlace> places = Lists.newArrayList();
-		String[] name = {"Beijing", "Seoul", "Tokyo"};
+		String[] name = {"Happy", "Coffee", "Tea"};
 		String[] zip = {"94110","95420","96018"};
 		String[] pt = {"giant","red"};
 
@@ -32,4 +32,5 @@ public class TestPandaProvider {
 		}
 		return places;
 	}
+	
 }

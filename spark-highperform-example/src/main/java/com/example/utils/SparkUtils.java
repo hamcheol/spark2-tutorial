@@ -13,7 +13,7 @@ import org.apache.spark.sql.SparkSession;
 
 public class SparkUtils {
 	//public static String SPARK_MASTER = "spark://AL01221128.local:7077";
-	public static String SPARK_MASTER = "local[3]";
+	public static String SPARK_MASTER = "local[7]";
 
 	public static JavaSparkContext getSparkContext(String appName) {
 		SparkConf conf = getSparkConf()

@@ -1,4 +1,4 @@
-package com.example.ch03;
+package com.example.model;
 
 import java.io.Serializable;
 import java.util.List;
