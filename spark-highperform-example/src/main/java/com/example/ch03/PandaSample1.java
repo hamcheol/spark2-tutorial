@@ -21,7 +21,7 @@ public class PandaSample1 {
 
 	public static void main(String[] args) {
 		SparkSession session = SparkUtils.getSparkSession("PandaSample1");
-		List<PandaPlace> places = TestPandaProvider.extract();
+		List<PandaPlace> places = TestPandaProvider.extractPandaPlaces();
 		
 		Dataset<PandaPlace> pandaPlace = session.createDataset(places, Encoders.bean(PandaPlace.class));
 		

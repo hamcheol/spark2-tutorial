@@ -20,7 +20,7 @@ public class PandaSample3 {
 	public static void main(String[] args) {
 		SparkSession session = SparkUtils.getSparkSession("PandaSample3");
 		
-		List<PandaPlace> places = TestPandaProvider.extract();
+		List<PandaPlace> places = TestPandaProvider.extractPandaPlaces();
 		//Dataset<PandaPlace> pandaPlace = session.createDataset(places, Encoders.bean(PandaPlace.class));
 
 		List<Tuple2<Long, Integer>> tuples1 = Lists.newArrayList();
